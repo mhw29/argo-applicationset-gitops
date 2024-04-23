@@ -14,22 +14,25 @@ provider "aws" {
     region = "us-east-1" 
 }
 
-data "aws_eks_cluster" "default" {
-  depends_on          = [module.eks]
-  name                = "gitops-eks"
+data "aws_eks_cluster" "cluster" {
+  name = module.eks.cluster_id
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_id
 }
 
 provider "helm" {
   kubernetes {
-    host                   = data.aws_eks_cluster.default.argo_applicationset_master_endpoint
-    token                  = data.aws_eks_cluster_auth.default.argo_applicationset_master_token
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.argo_applicationset_master_certificate_authority)
+    host                   = data.aws_eks_cluster.cluster.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+    token                  = data.aws_eks_cluster_auth.cluster.token
   }
 }
 
 provider "kubernetes" {
-    host                   = data.aws_eks_cluster.default.argo_applicationset_master_endpoint
-    token                  = data.aws_eks_cluster_auth.default.argo_applicationset_master_token
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.argo_applicationset_master_certificate_authority)
+    host                   = data.aws_eks_cluster.cluster.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+    token                  = data.aws_eks_cluster_auth.cluster.token
 } 
 
