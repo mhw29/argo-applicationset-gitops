@@ -17,6 +17,7 @@ resource "helm_release" "argocd" {
 
   # Ensure the namespace exists
   depends_on = [
+    module.eks,
     kubernetes_namespace.argo
   ]
 }
@@ -27,6 +28,6 @@ resource "kubernetes_namespace" "argo" {
   }
 
   depends_on = [
-    resource.aws_eks_cluster.application_set_master,
+    module.eks,
   ]
 }

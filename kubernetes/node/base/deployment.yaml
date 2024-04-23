@@ -20,11 +20,9 @@ spec:
         environment: dev
     spec:
       containers:
-      - image: registry.gitlab.com/ignw1/products/cloud-strategy-programs/advanced-platforms-and-integrations/cn-gitops-app:v1.0.11
+      - image: nginx
         name: gitops-app
         ports:
-        - containerPort: 8000
+        - containerPort: 80
         resources: {}
-      imagePullSecrets:
-      - name: gitlab-credentials
 status: {}
