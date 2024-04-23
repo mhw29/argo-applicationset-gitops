@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "application_set_master" {
     name     = "argo-applicationset-master"
-    role_arn = aws_iam_role.my_cluster_role.arn
+    role_arn = aws_iam_role.argo-applicationset-master-role.arn
     version  = "1.29" 
 
     vpc_config {
@@ -29,7 +29,7 @@ EOF
 
 resource "aws_eks_cluster" "application_set_node" {
     name     = "argo-applicationset-node"
-    role_arn = aws_iam_role.my_cluster_role.arn
+    role_arn = aws_iam_role.argo-applicationset-node-role.arn
     version  = "1.29"  
 
     vpc_config {
