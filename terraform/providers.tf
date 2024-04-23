@@ -14,7 +14,7 @@ provider "aws" {
     region = "us-east-1" 
 }
 
-data "eks_kubernetes_cluster" "default" {
+data "aws_eks_cluster" "default" {
   depends_on          = [module.eks]
   name                = "gitops-eks"
 }
