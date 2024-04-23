@@ -1,3 +1,3 @@
-output "cluster_name" {
+output "cluster_id" {
   value = aws_eks_cluster.application_set_master.id
 }
