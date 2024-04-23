@@ -9,7 +9,7 @@ output "argo_applicationset_master_certificate_authority" {
 }
 
 output "argo_applicationset_master_token" {
-  value = aws_eks_cluster_application_set_master.auth[0].token
+  value = aws_eks_cluster_application_set_master.token
 }
 
 output "argo_applicationset_node_endpoint" {
