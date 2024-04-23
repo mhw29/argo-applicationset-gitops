@@ -21,15 +21,15 @@ data "aws_eks_cluster" "default" {
 
 provider "helm" {
   kubernetes {
-    host                   = data.aws_eks_cluster.default.endpoint
-    token                  = data.aws_eks_cluster_auth.default.token
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.certificate_authority[0].data)
+    host                   = data.aws_eks_cluster.default.argo_applicationset_master_endpoint
+    token                  = data.aws_eks_cluster_auth.default.argo_applicationset_master_token
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.argo_applicationset_master_certificate_authority)
   }
 }
 
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.default.endpoint
-  token                  = data.aws_eks_cluster_auth.default.token
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.certificate_authority[0].data)
+    host                   = data.aws_eks_cluster.default.argo_applicationset_master_endpoint
+    token                  = data.aws_eks_cluster_auth.default.argo_applicationset_master_token
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.argo_applicationset_master_certificate_authority)
 } 
 
